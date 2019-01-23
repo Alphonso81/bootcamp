@@ -19,13 +19,19 @@ public class Practica1 {
      */
     public static void main(String[] args) {
        
-        ArrayList list=new ArrayList();
+        ArrayList list= new ArrayList();
         
         list.add(new ClaseA());
         list.add(new ClaseB());
         list.add(new ClaseC());
         list.add(new ClaseD());
         
+    
+        for(Object obj:list){
+            if(obj.getClass() != (new ClaseD()).getClass())
+                System.out.println(((ClaseA)obj).whoiam());
+        }
+     
     }//finmain
     
 }

@@ -12,6 +12,6 @@ package practica1;
 public class ClaseC extends ClaseA{
     @Override
     String whoiam(){
-        return "i am ClaseB";
+        return "I am ClaseC";
     }
 }
