@@ -28,8 +28,9 @@ public class Practica1 {
         
     
         for(Object obj:list){
-            if(obj.getClass() != (new ClaseD()).getClass())
+           if(obj instanceof ClaseA)
                 System.out.println(((ClaseA)obj).whoiam());
+             
         }
      
     }//finmain
