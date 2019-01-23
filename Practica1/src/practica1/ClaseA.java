@@ -11,4 +11,7 @@ package practica1;
  */
 public class ClaseA {
     
+    String whoiam(){
+        return "I am ClaseA";
+    }
 }

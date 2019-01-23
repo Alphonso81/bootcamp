@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package practica1;
+package otropackete;
+
+import practica1.ClaseA;
 
 /**
  *
  * @author roberto
  */
-public class ClaseD {
+public class ClaseD extends ClaseA{
     
 }

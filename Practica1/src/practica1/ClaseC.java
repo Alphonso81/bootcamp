@@ -9,6 +9,9 @@ package practica1;
  *
  * @author roberto
  */
-public class ClaseC {
-    
+public class ClaseC extends ClaseA{
+    @Override
+    String whoiam(){
+        return "i am ClaseB";
+    }
 }
