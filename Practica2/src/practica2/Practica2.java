@@ -15,7 +15,14 @@ public class Practica2 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-    }
+       
+        ClaseC c=new ClaseC();
+        c.metodoInterfazA();
+        
+        ClaseD d=new ClaseD();
+        d.metodoInterfazA();
+        d.metodoInterfazB();
+        
+    }//finmain
     
 }
