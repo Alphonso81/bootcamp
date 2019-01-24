@@ -6,7 +6,7 @@
 package practica1;
 
 import java.util.ArrayList;
-import otroPackete.ClaseD;
+import otropackete.ClaseD;
 
 /**
  *
@@ -19,7 +19,7 @@ public class Practica1 {
      */
     public static void main(String[] args) {
        
-        ArrayList list= new ArrayList();
+        ArrayList<ClaseA> list= new ArrayList();
         
         list.add(new ClaseA());
         list.add(new ClaseB());
@@ -27,8 +27,8 @@ public class Practica1 {
         list.add(new ClaseD());
         
     
-        for(Object obj:list){
-          if(obj.getClass() != (new ClaseD()).getClass())
+        for(ClaseA obj:list){
+          if(obj.getClass()!= (new ClaseD()).getClass())
             System.out.println(((ClaseA)obj).whoiam());
              
         }
