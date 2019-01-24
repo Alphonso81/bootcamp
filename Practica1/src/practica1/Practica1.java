@@ -28,8 +28,8 @@ public class Practica1 {
         
     
         for(Object obj:list){
-           if(obj instanceof ClaseA)
-                System.out.println(((ClaseA)obj).whoiam());
+          if(obj.getClass() != (new ClaseD()).getClass())
+            System.out.println(((ClaseA)obj).whoiam());
              
         }
      
