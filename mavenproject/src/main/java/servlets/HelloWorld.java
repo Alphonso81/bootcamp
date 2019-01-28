@@ -11,13 +11,15 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 /**
  *
  * @author roberto
  */
 public class HelloWorld extends HttpServlet {
-
+    private static final Logger logger=LogManager.getLogger(HelloWorld.class);
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -29,6 +31,7 @@ public class HelloWorld extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        logger.info("In the servlet");
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
            
@@ -42,6 +45,7 @@ public class HelloWorld extends HttpServlet {
             out.println("</body>");
             out.println("</html>");
         }
+        logger.info("End of the servlet");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
