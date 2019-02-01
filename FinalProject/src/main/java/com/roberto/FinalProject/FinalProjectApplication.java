@@ -1,13 +1,13 @@
-package com.roberto.demospring;
+package com.roberto.FinalProject;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DemospringApplication {
+public class FinalProjectApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DemospringApplication.class, args);
+		SpringApplication.run(FinalProjectApplication.class, args);
 	}
 
 }
