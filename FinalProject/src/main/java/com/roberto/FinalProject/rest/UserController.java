@@ -11,6 +11,8 @@ import com.roberto.FinalProject.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,4 +40,13 @@ public class UserController {
 			return "Success!!";
 		return "FAIL!";
 	}
+        
+    @GetMapping("/User/{idUser}")
+    public User findUser(@PathVariable("idUser") long idUser){
+        User user=userService.findUser(idUser);
+        logger.info("after the search "+user);
+        if(user!=null)
+            return user;
+        return null;
+    }
 }//endclass
