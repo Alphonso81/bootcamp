@@ -11,6 +11,8 @@ import com.roberto.FinalProject.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -32,21 +34,21 @@ public class UserController {
     private static final Logger logger=LogManager.getLogger(UserController.class);
    
   @PostMapping("/User")
-	public String saveUser(@RequestBody User user) {
+	public ResponseEntity<User> saveUser(@RequestBody User user) {
             logger.info("before the insert "+user);
 		User u=userService.saveUser(user);
             logger.info("after the insert "+user);
 		if(u!=null)
-			return "Success!!";
-		return "FAIL!";
+			return ResponseEntity.ok().body(u);
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(u);
 	}
         
     @GetMapping("/User/{idUser}")
-    public User findUser(@PathVariable("idUser") long idUser){
+    public ResponseEntity<User> findUser(@PathVariable("idUser") long idUser){
         User user=userService.findUser(idUser);
         logger.info("after the search "+user);
         if(user!=null)
-            return user;
-        return null;
+            return ResponseEntity.ok().body(user);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(user);
     }
 }//endclass
