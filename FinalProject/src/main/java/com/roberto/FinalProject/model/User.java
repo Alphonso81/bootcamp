@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import lombok.Data;
 
 /**
@@ -27,13 +28,16 @@ public @Data class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    
+    
     @Column(name = "Name")
     private String name;
-
+    
+   
     @Column(name = "Email")
     private String email;
-
+    
+   
     @Column(name = "Dni")
     private int dni;
 

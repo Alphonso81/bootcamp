@@ -6,7 +6,9 @@
 package com.roberto.FinalProject.service;
 
 import com.roberto.FinalProject.dao.UserRepository;
+import com.roberto.FinalProject.errorHandler.EntityNotFoundException;
 import com.roberto.FinalProject.model.User;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +27,12 @@ public class UserService {
         return repository.save(user);
     }
     
-    public User findUser(Long idUser){
-        return repository.findById(idUser).orElse(null);
+    public User findUser(Long idUser) throws EntityNotFoundException {
+        User user= repository.findById(idUser).orElse(null);
+        if(user==null){
+            throw new EntityNotFoundException(User.class,"id",idUser.toString());
+        }
+            
+        return user;
     }
 }//endclass
