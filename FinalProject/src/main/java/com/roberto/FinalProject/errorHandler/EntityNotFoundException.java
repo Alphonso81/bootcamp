@@ -25,7 +25,7 @@ public class EntityNotFoundException extends Exception {
 
     private static String generateMessage(String entity, Map<String, String> searchParams) {
         return StringUtils.capitalize(entity) +
-                " was not found for parameters " +
+                " was not found for " +
                 searchParams;
     }
 
