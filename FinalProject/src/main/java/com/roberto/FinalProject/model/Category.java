@@ -24,7 +24,7 @@ import lombok.EqualsAndHashCode;
  *
  * @author roberto
  */
-@EqualsAndHashCode(exclude = "users")
+//@EqualsAndHashCode(exclude = "users")
 @Entity
 @Table(name="category")
 public @Data class Category implements Serializable {
@@ -37,13 +37,13 @@ public @Data class Category implements Serializable {
     @Column(name="Description")
     private String description;
     
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
-    private Set<User> users;
-    
-     public Category(String description, User... books) {
+    //@OneToMany(mappedBy = "category")//, cascade = CascadeType.ALL)
+   // private Set<User> users;
+    /*
+     public Category(String description, User... users) {
         this.description = description;
-        this.users = Stream.of(books).collect(Collectors.toSet());
+        this.users = Stream.of(users).collect(Collectors.toSet());
         this.users.forEach(x -> x.setCategory(this));
     }
-    
+    */
 }//endclass

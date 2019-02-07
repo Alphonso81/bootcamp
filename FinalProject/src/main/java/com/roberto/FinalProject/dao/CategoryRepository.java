@@ -5,7 +5,8 @@
  */
 package com.roberto.FinalProject.dao;
 
-import com.roberto.FinalProject.model.User;
+
+import com.roberto.FinalProject.model.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 //import org.springframework.data.repository.CrudRepository;
 
@@ -13,6 +14,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  *
  * @author roberto
  */
-public interface CategoryRepository extends JpaRepository<User, Long>{
+public interface CategoryRepository extends JpaRepository<Category, Long>{
     
 }

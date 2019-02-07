@@ -60,19 +60,21 @@ public class UserController {
     }
 
     @GetMapping("/User/{idUser}")
-    public User findUser(@PathVariable("idUser") long idUser) throws EntityNotFoundException {
-        return userService.findUser(idUser);
+    public ResponseEntity<User> findUser(@PathVariable("idUser") long idUser) throws EntityNotFoundException {
+        User user=userService.findUser(idUser);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @DeleteMapping("/User/{idUser}")
-    public ResponseEntity deleteUser(@PathVariable("idUser") long idUser) throws EntityNotFoundException {
+    public ResponseEntity<User> deleteUser(@PathVariable("idUser") long idUser) throws EntityNotFoundException {
         userService.deleteUser(idUser);
         return ResponseEntity.ok().build();
     }
     
     @GetMapping("/Users")
-    public List<User> getUsers(){
-        return userService.getAllUsers();
+    public ResponseEntity getUsers(){
+        List<User> list= userService.getAllUsers();
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
     //-------------------------------------------------
     @InitBinder

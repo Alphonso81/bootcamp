@@ -25,8 +25,12 @@ public class UserService {
     
     @Autowired
     private UserRepository repository;
+    
+    @Autowired
+    private CategoryService catRepo;
    
     public User saveUser(User user) {
+        catRepo.saveCategory(user.getCategory());
         return repository.save(user);
     }
     
@@ -34,8 +38,7 @@ public class UserService {
         User user= repository.findById(idUser).orElse(null);
         if(user==null){
             throw new EntityNotFoundException(User.class,"id",idUser.toString());
-        }
-            
+        }       
         return user;
     }
 
@@ -44,8 +47,7 @@ public class UserService {
         if(user==null){
             throw new EntityNotFoundException(User.class,"id",idUser.toString());
         }
-        repository.delete(user);
-        
+        repository.delete(user);        
     }
 
     public User updateUser(User user, Long idUser) throws EntityNotFoundException {
@@ -53,16 +55,13 @@ public class UserService {
         if(u==null){
             throw new EntityNotFoundException(User.class,"id",idUser.toString());
         }
-        repository.delete(u);
+        //repository.delete(u);  
+        user.setId(idUser);
         return repository.save(user);
     }
 
     public List<User> getAllUsers() {
-        List<User> list=new ArrayList<>();
-        
-        for(User u:repository.findAll()){
-            list.add(u);
-        }
-        return list;
+       
+        return (List<User>)repository.findAll();
     }
 }//endclass
