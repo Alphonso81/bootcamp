@@ -5,15 +5,15 @@
  */
 package com.roberto.FinalProject.dao;
 
-
-import com.roberto.FinalProject.model.Category;
+import com.roberto.FinalProject.model.Game;
 import org.springframework.data.jpa.repository.JpaRepository;
-//import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author roberto
  */
-public interface CategoryRepository extends JpaRepository<Category, Long>{
+@Repository
+public interface GameRepository extends JpaRepository <Game, Long>{
     
 }
