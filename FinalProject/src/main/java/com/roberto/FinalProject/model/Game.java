@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.time.OffsetDateTime;
 import java.util.Set;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -23,7 +24,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Game extends Item implements Serializable{
     private static final long serialVersionUID = 1L;
-    //private Set<Item> mods;
+    
+    @OneToMany(mappedBy = "game")
+    private Set<Mod> mods;
     
     public Game(Long id, OffsetDateTime creationDate, OffsetDateTime editionDate, OffsetDateTime deletionDate,String name,String web,String mob){
         super(id,creationDate,editionDate,deletionDate,name,web,mob);       

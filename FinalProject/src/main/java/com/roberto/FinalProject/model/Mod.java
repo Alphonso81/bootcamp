@@ -8,6 +8,8 @@ package com.roberto.FinalProject.model;
 import java.io.Serializable;
 import java.time.OffsetDateTime;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -24,7 +26,9 @@ import lombok.NoArgsConstructor;
 @Table(name="mods")
 public class Mod extends Item implements Serializable{
     private static final long serialVersionUID = 1L;
-    //private Game game;
+    @ManyToOne
+    @JoinColumn
+    private Game game;
     
     public Mod(Long id, OffsetDateTime creationDate, OffsetDateTime editionDate, OffsetDateTime deletionDate,String name,String web,String mob){
         super(id,creationDate,editionDate,deletionDate,name,web,mob);       

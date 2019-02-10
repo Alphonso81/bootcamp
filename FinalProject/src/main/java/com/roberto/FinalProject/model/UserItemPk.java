@@ -13,7 +13,7 @@ import lombok.Data;
  * @author roberto
  */
 @Data
-public class UserItemClass implements Serializable {
+public class UserItemPk implements Serializable {
     private static final long serialVersionUID = 1L;
     private Long userId;
     private Long itemId;

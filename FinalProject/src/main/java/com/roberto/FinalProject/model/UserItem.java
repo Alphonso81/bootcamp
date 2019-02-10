@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @NoArgsConstructor
-@IdClass(UserItemClass.class)
+@IdClass(UserItemPk.class)
 public class UserItem {
        
     @Id
