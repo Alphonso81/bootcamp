@@ -7,9 +7,16 @@ package com.roberto.FinalProject.model;
 
 import java.io.Serializable;
 import java.time.OffsetDateTime;
+import java.util.Set;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.SecondaryTable;
 import javax.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -23,14 +30,20 @@ import lombok.NoArgsConstructor;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
-@Table(name="mods")
-public class Mod extends Item implements Serializable{
+//@DiscriminatorValue("Mod")
+@Table(name = "mods")
+public class Mod extends Item implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @ManyToOne
     @JoinColumn
     private Game game;
-    
-    public Mod(Long id, OffsetDateTime creationDate, OffsetDateTime editionDate, OffsetDateTime deletionDate,String name,String web,String mob){
-        super(id,creationDate,editionDate,deletionDate,name,web,mob);       
+
+    public Mod(Long id, OffsetDateTime creationDate, OffsetDateTime editionDate, OffsetDateTime deletionDate, String name, String web, String mob) {
+        super(id, creationDate, editionDate, deletionDate, name, web, mob);
     }
-}
+    
+    @OneToMany(mappedBy = "itemMod")
+    private Set<UserItem> userItems;
+    
+}//endclass

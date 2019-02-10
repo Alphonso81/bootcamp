@@ -6,9 +6,16 @@
 package com.roberto.FinalProject.model;
 
 import java.time.OffsetDateTime;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -24,15 +31,19 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public abstract class Item extends BaseNamedEntity{
-   @Embedded
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+//@DiscriminatorColumn(name = "id")
+public abstract class Item extends BaseNamedEntity {
+
+    @Embedded
     private Description description;
-    
-   // @OneToMany(mappedBy = "item")
-   // private Set<UserItem> userItem;
-    
-    public Item(Long id, OffsetDateTime creationDate, OffsetDateTime editionDate, OffsetDateTime deletionDate,String name,String web,String mob){
-          super(id,creationDate,editionDate,deletionDate,name);
-         this.description=new Description(id,creationDate,editionDate,deletionDate,web,mob);
+
+    /*
+    @OneToMany(mappedBy = "item")
+    private Set<UserItem> userItems;
+    */
+    public Item(Long id, OffsetDateTime creationDate, OffsetDateTime editionDate, OffsetDateTime deletionDate, String name, String web, String mob) {
+        super(id, creationDate, editionDate, deletionDate, name);
+        this.description = new Description(id, creationDate, editionDate, deletionDate, web, mob);
     }
 }

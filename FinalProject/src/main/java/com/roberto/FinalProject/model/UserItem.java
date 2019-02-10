@@ -6,36 +6,51 @@
 package com.roberto.FinalProject.model;
 
 import java.io.Serializable;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  *
  * @author roberto
  */
+//@IdClass(UserItemPk.class)
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
-@IdClass(UserItemPk.class)
-public class UserItem {
-       
-    @Id
-    private Long userId;
-    @Id
-    private Long itemId;
+@AllArgsConstructor
+public class UserItem implements Serializable {
 
-   // @ManyToOne
-  //  @JoinColumn
-  //  private User user;
+    private static final long serialVersionUID = 1L;
+    //private Long userId;
+    //private Long itemId;
+    @Id
+    private Long userItemId;
+    
+    
+    @ManyToOne
+    @JoinColumn
+    private Mod itemMod;
+    
+    @ManyToOne
+    @JoinColumn
+    private Game itemGame;
 
-   // @ManyToOne
-  //  @JoinColumn
-   // private Item item;
+    
+    @ManyToOne
+    @JoinColumn
+    private User user;
+
+    
 }
