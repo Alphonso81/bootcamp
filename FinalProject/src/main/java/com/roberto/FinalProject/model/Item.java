@@ -31,17 +31,15 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-//@DiscriminatorColumn(name = "id")
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Item extends BaseNamedEntity {
 
     @Embedded
     private Description description;
-
-    /*
+    
     @OneToMany(mappedBy = "item")
     private Set<UserItem> userItems;
-    */
+    
     public Item(Long id, OffsetDateTime creationDate, OffsetDateTime editionDate, OffsetDateTime deletionDate, String name, String web, String mob) {
         super(id, creationDate, editionDate, deletionDate, name);
         this.description = new Description(id, creationDate, editionDate, deletionDate, web, mob);

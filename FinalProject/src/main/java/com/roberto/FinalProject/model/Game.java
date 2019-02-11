@@ -37,7 +37,5 @@ public class Game extends Item implements Serializable{
     public Game(Long id, OffsetDateTime creationDate, OffsetDateTime editionDate, OffsetDateTime deletionDate,String name,String web,String mob){
         super(id,creationDate,editionDate,deletionDate,name,web,mob);       
     }
-    
-    @OneToMany(mappedBy = "itemGame")
-    private Set<UserItem> userItems;
+   
 }//endclass

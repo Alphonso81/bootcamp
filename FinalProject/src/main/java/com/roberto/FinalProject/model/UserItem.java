@@ -19,38 +19,33 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.metamodel.model.convert.internal.JpaAttributeConverterImpl;
+import org.springframework.data.domain.Persistable;
+import org.springframework.data.jpa.repository.support.JpaEntityInformation;
+import org.springframework.data.jpa.repository.support.JpaPersistableEntityInformation;
 
 /**
  *
  * @author roberto
  */
-//@IdClass(UserItemPk.class)
+
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserItem implements Serializable {
+public class UserItem implements Serializable{
 
     private static final long serialVersionUID = 1L;
-    //private Long userId;
-    //private Long itemId;
+ 
     @Id
-    private Long userItemId;
-    
-    
     @ManyToOne
     @JoinColumn
-    private Mod itemMod;
+    private Item item;
     
-    @ManyToOne
-    @JoinColumn
-    private Game itemGame;
-
-    
+    @Id    
     @ManyToOne
     @JoinColumn
     private User user;
-
-    
+   
 }

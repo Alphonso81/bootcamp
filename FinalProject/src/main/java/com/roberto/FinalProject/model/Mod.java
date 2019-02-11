@@ -42,8 +42,5 @@ public class Mod extends Item implements Serializable {
     public Mod(Long id, OffsetDateTime creationDate, OffsetDateTime editionDate, OffsetDateTime deletionDate, String name, String web, String mob) {
         super(id, creationDate, editionDate, deletionDate, name, web, mob);
     }
-    
-    @OneToMany(mappedBy = "itemMod")
-    private Set<UserItem> userItems;
-    
+ 
 }//endclass
