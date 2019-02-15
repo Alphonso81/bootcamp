@@ -5,15 +5,17 @@
  */
 package com.roberto.FinalProject.model;
 
-
 import java.io.Serializable;
-
 import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import lombok.AllArgsConstructor;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -23,19 +25,20 @@ import lombok.NoArgsConstructor;
  * @author roberto
  */
 @Entity
-@Table(name = "users")
 @Data
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class User extends BaseNamedEntity implements Serializable {
-
-    private String email;
-
-    private int dni;
-
-    @OneToMany(mappedBy = "user")
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "ItemType")
+public class Item extends BaseNamedEntity implements Serializable {
+    
+    @Column(insertable = false)
+    private String ItemType;
+    
+    @Embedded
+    private Description description;
+    
+     @OneToMany(mappedBy = "item")
     private Set<UserItem> userItems;
-    
-    
-}//endClass
+}

@@ -5,17 +5,13 @@
  */
 package com.roberto.FinalProject.model;
 
-
 import java.io.Serializable;
-
-import java.util.Set;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
-
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
@@ -23,19 +19,18 @@ import lombok.NoArgsConstructor;
  * @author roberto
  */
 @Entity
-@Table(name = "users")
 @Data
-@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class User extends BaseNamedEntity implements Serializable {
-
-    private String email;
-
-    private int dni;
-
-    @OneToMany(mappedBy = "user")
-    private Set<UserItem> userItems;
+public class UserItem implements Serializable {
+    @Id
+    private Long id;
     
+    @ManyToOne
+    @JoinColumn
+    private User user;
     
-}//endClass
+    @ManyToOne
+    @JoinColumn
+    private Item item;
+}

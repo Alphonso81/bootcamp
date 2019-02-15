@@ -26,11 +26,9 @@ public class UserService {
     @Autowired
     private UserRepository repository;
     
-    @Autowired
-    private CategoryService catRepo;
-   
+    
     public User saveUser(User user){
-        catRepo.saveCategory(user.getCategory());
+       
         return repository.save(user);
     }
     
