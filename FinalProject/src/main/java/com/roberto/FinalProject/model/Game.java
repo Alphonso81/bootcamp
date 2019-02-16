@@ -5,6 +5,7 @@
  */
 package com.roberto.FinalProject.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Set;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -26,6 +27,7 @@ import lombok.NoArgsConstructor;
 @DiscriminatorValue("G")
 public class Game extends Item{
     
+    @JsonIgnore
     @OneToMany(mappedBy = "game")
     private Set<Mods> mods;
 }

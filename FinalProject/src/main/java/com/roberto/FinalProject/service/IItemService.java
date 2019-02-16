@@ -14,14 +14,15 @@ import java.util.List;
  */
 public interface IItemService {
     
+    List<Item> findAll();
+    /*
     Item findById(Long itemId);
     
-    List<Item> findAll();
     
     void deleteById(Long itemId);
     
     Item updateById(Long itemId);
     
     void saveUser(Item item);
-    
+    */
 }

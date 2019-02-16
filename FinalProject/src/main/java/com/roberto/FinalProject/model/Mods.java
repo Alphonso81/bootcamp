@@ -5,6 +5,7 @@
  */
 package com.roberto.FinalProject.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -26,6 +27,7 @@ import lombok.NoArgsConstructor;
 @DiscriminatorValue("M")
 public class Mods extends Item{
     
+   @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "game_id")
     private Game game;

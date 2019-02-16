@@ -5,6 +5,7 @@
  */
 package com.roberto.FinalProject.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Column;
@@ -39,6 +40,7 @@ public class Item extends BaseNamedEntity implements Serializable {
     @Embedded
     private Description description;
     
-     @OneToMany(mappedBy = "item")
+    @JsonIgnore
+    @OneToMany(mappedBy = "item")
     private Set<UserItem> userItems;
 }

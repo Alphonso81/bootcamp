@@ -6,6 +6,7 @@
 package com.roberto.FinalProject.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 
 import java.util.Set;
@@ -33,7 +34,8 @@ public class User extends BaseNamedEntity implements Serializable {
     private String email;
 
     private int dni;
-
+    
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private Set<UserItem> userItems;
     

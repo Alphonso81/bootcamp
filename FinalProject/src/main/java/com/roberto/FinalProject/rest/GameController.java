@@ -5,16 +5,8 @@
  */
 package com.roberto.FinalProject.rest;
 
-import com.roberto.FinalProject.errorHandler.EntityNotFoundException;
 import com.roberto.FinalProject.model.Game;
-import com.roberto.FinalProject.model.Item;
-import com.roberto.FinalProject.model.Mods;
-
-import com.roberto.FinalProject.service.ItemService;
-import com.roberto.FinalProject.service.ModService;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import com.roberto.FinalProject.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,21 +19,14 @@ import org.springframework.web.bind.annotation.RestController;
  * @author roberto
  */
 @RestController
-@RequestMapping("/Item")
-public class ItemController {
+@RequestMapping("/Game")
+public class GameController {
     @Autowired
-    private ItemService itemService;
+    private GameService gameService;
     
-       
-   @GetMapping("/Items")
-   public ResponseEntity getAllItems(){
-      
-    List<Item> list=itemService.getAllItems();
+     @GetMapping("/Games")
+   public ResponseEntity getAllGames(){
+       Iterable<Game> list=gameService.getAllGames();
        return new ResponseEntity(list, HttpStatus.CREATED);
    }
-   
-  
-      
-  
- 
 }//endController

@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface IUserService {
     
-    User findById(Long userId);
+    User findUser(Long idUser);
     
     List<User> findAll();
     
@@ -22,7 +22,7 @@ public interface IUserService {
     
     User updateById(Long userId);
     
-    void saveUser(User user);
+    User saveUser(User user);
     
     
      

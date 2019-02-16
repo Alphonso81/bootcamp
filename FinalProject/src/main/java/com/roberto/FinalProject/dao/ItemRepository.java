@@ -6,6 +6,8 @@
 package com.roberto.FinalProject.dao;
 
 import com.roberto.FinalProject.model.Item;
+import java.util.List;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,5 +17,11 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface ItemRepository extends CrudRepository<Item, Long>{
+    
+    @Query(nativeQuery = true,
+            value = "SELECT * FROM item")
+    List<Item> findByType(String type);
+    
+   // List<Item> findMods();
     
 }
