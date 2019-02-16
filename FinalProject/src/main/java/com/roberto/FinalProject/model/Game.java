@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @DiscriminatorValue("G")
-class Game extends Item{
+public class Game extends Item{
     
     @OneToMany(mappedBy = "game")
     private Set<Mods> mods;

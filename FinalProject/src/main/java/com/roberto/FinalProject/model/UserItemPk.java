@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Embeddable
-class UserItemPk implements Serializable {
+public class UserItemPk implements Serializable {
     
     @Basic(optional = false)
     @Column(name="user_id")

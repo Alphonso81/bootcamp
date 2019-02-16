@@ -21,9 +21,5 @@ public class ItemController {
     @Autowired
     private ItemService itemService;
     
-    @GetMapping("/insertMod")
-    public ResponseEntity insert(){
-        itemService.insertMod();
-        return new ResponseEntity("Hola", HttpStatus.CREATED);
-    }
+   
 }

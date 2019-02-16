@@ -6,6 +6,7 @@
 package com.roberto.FinalProject.service;
 
 import com.roberto.FinalProject.dao.ItemRepository;
+import com.roberto.FinalProject.dao.ModRepository;
 import com.roberto.FinalProject.model.Mods;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,12 +18,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class ItemService {
     @Autowired
-    private ItemRepository repository;
+    private ItemRepository itemRepo;
     
-    public void insertMod(){
-        Mods mod=new Mods();
-        mod.setName("Hola soy un mod");
-        
-       repository.save(mod);
-    }
+    
+    
+    
 }
