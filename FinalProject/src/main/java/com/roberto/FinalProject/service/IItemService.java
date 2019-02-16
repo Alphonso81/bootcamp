@@ -5,25 +5,23 @@
  */
 package com.roberto.FinalProject.service;
 
-import com.roberto.FinalProject.model.User;
+import com.roberto.FinalProject.model.Item;
 import java.util.List;
 
 /**
  *
  * @author roberto
  */
-public interface IUserService {
+public interface IItemService {
     
-    User findById(Long userId);
+    Item findById(Long itemId);
     
-    List<User> findAll();
+    List<Item> findAll();
     
-    void deleteById(Long userId);
+    void deleteById(Long itemId);
     
-    User updateById(Long userId);
+    Item updateById(Long itemId);
     
-    void saveUser(User user);
+    void saveUser(Item item);
     
-    
-     
 }

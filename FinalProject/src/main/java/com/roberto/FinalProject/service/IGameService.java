@@ -5,25 +5,23 @@
  */
 package com.roberto.FinalProject.service;
 
-import com.roberto.FinalProject.model.User;
+import com.roberto.FinalProject.model.Game;
 import java.util.List;
 
 /**
  *
  * @author roberto
  */
-public interface IUserService {
-    
-    User findById(Long userId);
-    
-    List<User> findAll();
-    
-    void deleteById(Long userId);
-    
-    User updateById(Long userId);
-    
-    void saveUser(User user);
-    
-    
-     
+public interface IGameService {
+
+    Game findById(Long itemId);
+
+    List<Game> findAll();
+
+    void deleteById(Long gameId);
+
+    Game updateById(Long gameId);
+
+    void saveUser(Game game);
+
 }

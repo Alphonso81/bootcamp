@@ -5,25 +5,22 @@
  */
 package com.roberto.FinalProject.service;
 
-import com.roberto.FinalProject.model.User;
+import com.roberto.FinalProject.model.Mods;
 import java.util.List;
 
 /**
  *
  * @author roberto
  */
-public interface IUserService {
-    
-    User findById(Long userId);
-    
-    List<User> findAll();
-    
-    void deleteById(Long userId);
-    
-    User updateById(Long userId);
-    
-    void saveUser(User user);
-    
-    
-     
+public interface IModService {
+
+    Mods findById(Long modId);
+
+    List<Mods> findAll();
+
+    void deleteById(Long modId);
+
+    Mods updateById(Long modId);
+
+    void saveUser(Mods mod);
 }
