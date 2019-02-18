@@ -6,6 +6,7 @@
 package com.roberto.FinalProject.dao;
 
 import com.roberto.FinalProject.model.Mods;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,6 +15,6 @@ import org.springframework.stereotype.Repository;
  * @author roberto
  */
 @Repository
-public interface ModRepository extends CrudRepository<Mods, Long> {
+public interface ModRepository extends JpaRepository<Mods, Long> {
     
 }

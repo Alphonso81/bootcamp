@@ -58,7 +58,7 @@ public class TestController {
         userService.saveUser(user);
         
         UserItem ui=new UserItem(new UserItemPk(user.getId(), mod.getId()), user, mod);
-        uiService.saveUserItem(ui);
+       // uiService.saveUserItem(ui);
         //------------
         User user2=new User();
         user2.setName("Sebastian");
@@ -69,7 +69,7 @@ public class TestController {
         ui2.setItem(game);
         UserItemPk uipk=new UserItemPk(user2.getId(), game.getId());
         ui2.setUserItemPk(uipk);
-        uiService.saveUserItem(ui2);
+//        uiService.saveUserItem(ui2);
 
         return new ResponseEntity("charged de items for the test", HttpStatus.CREATED);
     }

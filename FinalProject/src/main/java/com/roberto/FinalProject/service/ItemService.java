@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 /**
@@ -25,50 +26,58 @@ import org.springframework.stereotype.Service;
  * @author roberto
  */
 @Service
-public class ItemService{
+public class ItemService {
+
     @Autowired
     private ItemRepository itemRepo;
-    
-  
-    
+
     @Autowired
     private GameRepository gameRepo;
-   
-    public Item saveItem(Item item){
-       
-        return itemRepo.save(item);
+
+    public Item saveItem(Item item) {
+
+        return itemRepo.saveAndFlush(item);
     }
-    
+
     public Item findItem(Long idItem) throws EntityNotFoundException {
-        Item item= itemRepo.findById(idItem).orElse(null);
-        if(item==null){
-            throw new EntityNotFoundException(Item.class,"id",idItem.toString());
-        }       
+        Item item = itemRepo.findById(idItem).orElse(null);
+        if (item == null) {
+            throw new EntityNotFoundException(Item.class, "id", idItem.toString());
+        }
         return item;
     }
 
     public void deleteItem(Long idItem) throws EntityNotFoundException {
-        Item item= itemRepo.findById(idItem).orElse(null);
-        if(item==null){
-            throw new EntityNotFoundException(Item.class,"id",idItem.toString());
+        Item item = itemRepo.findById(idItem).orElse(null);
+        if (item == null) {
+            throw new EntityNotFoundException(Item.class, "id", idItem.toString());
         }
-        itemRepo.delete(item);        
+        itemRepo.delete(item);
     }
 
     public Item updateItem(Item item, Long idItem) throws EntityNotFoundException {
-        Item i= itemRepo.findById(idItem).orElse(null);
-        if(i==null){
-            throw new EntityNotFoundException(Item.class,"id",idItem.toString());
+        Item i = itemRepo.findById(idItem).orElse(null);
+        if (i == null) {
+            throw new EntityNotFoundException(Item.class, "id", idItem.toString());
         }
-       
+
         item.setId(idItem);
         return itemRepo.save(item);
     }
 
-    public List<Item> getAllItems(){
-        return (List<Item>)itemRepo.findAll();
+    public List<Item> getAllItems() {
+        return itemRepo.findAll();
     }
-    
+
+    public List<Item> getItemsByType(String type) {
+        Item filter = new Item();
+        filter.setItemType(type);
+
+        Example<Item> example = Example.of(filter);
+
+        return itemRepo.findAll(example);
+    }
+
     
 
-}
+}//end

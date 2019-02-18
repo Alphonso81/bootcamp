@@ -35,7 +35,6 @@ import org.springframework.web.bind.annotation.RestController;
  * @author roberto
  */
 @RestController
-@RequestMapping("/User")
 public class UserController {
 
     @Autowired
@@ -43,28 +42,30 @@ public class UserController {
 
     private static final Logger logger = LogManager.getLogger(UserController.class);
 
-    @PostMapping("/User")
-    public ResponseEntity<User> saveUser(@Valid @RequestBody User user) {
-        logger.info("before the insert " + user);
+    @PostMapping("/Users")
+    public ResponseEntity saveUser(@Valid @RequestBody User user) {
+       
         User u = userService.saveUser(user);
-        logger.info("after the insert " + user);
-
-        return new ResponseEntity<>(user, HttpStatus.OK);
+       
+        return new ResponseEntity(user, HttpStatus.OK);
     }
 
-    @PutMapping("/User/{idUser}")
-    public ResponseEntity<User> updateUser(@Valid @RequestBody User user, @PathVariable("idUser") Long idUser)throws EntityNotFoundException{
-        logger.info("before the update " + user);
-        User u = userService.updateUser(user,idUser);
-        logger.info("after the update " + user);
-        
-        return new ResponseEntity<>(u, HttpStatus.OK);
+    @PutMapping("/Users")
+    public ResponseEntity updateUser(@Valid @RequestBody User user)throws EntityNotFoundException{
+        User u = userService.updateUser(user);
+       return new ResponseEntity<>(u, HttpStatus.OK);
     }
 
-    @GetMapping("/User/{idUser}")
-    public ResponseEntity<User> findUser(@PathVariable("idUser") long idUser) throws EntityNotFoundException {
-        User user=userService.findUser(idUser);
-        return new ResponseEntity<>(user, HttpStatus.OK);
+    @GetMapping("/Users/Id/{idUser}")
+    public ResponseEntity findUserById(@PathVariable("idUser") Long idUser) throws EntityNotFoundException {
+        User user=userService.findUserById(idUser);
+        return new ResponseEntity(user, HttpStatus.OK);
+    }
+   
+    @GetMapping("/Users/Name/{nameUser}")
+    public ResponseEntity findUserByName(@PathVariable("nameUser") String nameUser) throws EntityNotFoundException {
+        User user=userService.findUserByName(nameUser);
+        return new ResponseEntity(user, HttpStatus.OK);
     }
 
     @DeleteMapping("/User/{idUser}")
@@ -78,6 +79,8 @@ public class UserController {
         List<User> list= userService.getAllUsers();
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
+    
+ 
     //-------------------------------------------------
     @InitBinder
     protected void initBinder(WebDataBinder binder) {

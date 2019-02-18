@@ -31,7 +31,7 @@ public class UserService {
         return userRepo.save(user);
     }
     
-    public User findUser(Long idUser) throws EntityNotFoundException {
+    public User findUserById(Long idUser) throws EntityNotFoundException {
         User user= userRepo.findById(idUser).orElse(null);
         if(user==null){
             throw new EntityNotFoundException(User.class,"id",idUser.toString());
@@ -47,18 +47,24 @@ public class UserService {
         userRepo.delete(user);        
     }
 
-    public User updateUser(User user, Long idUser) throws EntityNotFoundException {
-        User u= userRepo.findById(idUser).orElse(null);
+    public User updateUser(User user) throws EntityNotFoundException {
+        User u= userRepo.findById(user.getId()).orElse(null);
         if(u==null){
-            throw new EntityNotFoundException(User.class,"id",idUser.toString());
+            throw new EntityNotFoundException(User.class,"id",user.getId().toString());
         }
-        //repository.delete(u);  
-        user.setId(idUser);
         return userRepo.save(user);
     }
 
     public List<User> getAllUsers() {
        
         return (List<User>)userRepo.findAll();
+    }
+
+    public User findUserByName(String nameUser) throws EntityNotFoundException {
+        User user=userRepo.findByName(nameUser);
+        if(user==null)
+            throw new EntityNotFoundException(User.class,"name",nameUser);
+            
+       return user;
     }
 }//endclass
