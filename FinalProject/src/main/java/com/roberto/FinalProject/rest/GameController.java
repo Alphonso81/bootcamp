@@ -9,12 +9,15 @@ import com.roberto.FinalProject.errorHandler.EntityNotFoundException;
 import com.roberto.FinalProject.model.Game;
 import com.roberto.FinalProject.model.Mods;
 import com.roberto.FinalProject.service.GameService;
+import com.roberto.FinalProject.validators.GameValidator;
 import java.util.List;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -72,6 +75,13 @@ public class GameController {
     public ResponseEntity getModsGameByName(@PathVariable("nameGame")String name) throws EntityNotFoundException{
         List<Mods> list=gameService.getModsGameByName(name);
         return new ResponseEntity(list, HttpStatus.FOUND);
+    }
+    
+    //-------------------------------------------------
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        binder.setValidator(new GameValidator());
+        
     }
   
 }//endController

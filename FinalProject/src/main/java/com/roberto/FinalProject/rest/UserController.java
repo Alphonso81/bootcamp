@@ -69,7 +69,7 @@ public class UserController {
     }
 
     @DeleteMapping("/User/{idUser}")
-    public ResponseEntity<User> deleteUser(@PathVariable("idUser") long idUser) throws EntityNotFoundException {
+    public ResponseEntity<User> deleteUser(@PathVariable("idUser") Long idUser) throws EntityNotFoundException {
         userService.deleteUser(idUser);
         return ResponseEntity.ok().build();
     }
@@ -85,5 +85,6 @@ public class UserController {
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
         binder.setValidator(new UserValidator());
+        
     }
 }//endclass
