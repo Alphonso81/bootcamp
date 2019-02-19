@@ -10,6 +10,7 @@ import com.roberto.FinalProject.dao.ModRepository;
 import com.roberto.FinalProject.errorHandler.EntityNotFoundException;
 import com.roberto.FinalProject.model.Game;
 import com.roberto.FinalProject.model.Mods;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 
 import java.util.List;
@@ -53,6 +54,7 @@ public class GameService {
     }
 
     public Game saveGame(Game game) {
+        game.setCreationDate(OffsetDateTime.now());
         return gameRepo.save(game);
     }
 
@@ -70,6 +72,7 @@ public class GameService {
         Game g=gameRepo.findById(game.getId()).orElse(null);
         if(g==null)
             throw new EntityNotFoundException(Game.class,"id",game.getId().toString());
+        game.setEditionDate(OffsetDateTime.now());
         gameRepo.save(game);
         return game;
     }

@@ -9,15 +9,20 @@ import com.roberto.FinalProject.errorHandler.EntityNotFoundException;
 import com.roberto.FinalProject.model.Mods;
 import com.roberto.FinalProject.model.dot.dotModToGame;
 import com.roberto.FinalProject.service.ModService;
+import com.roberto.FinalProject.validators.ModToGameValidator;
+import com.roberto.FinalProject.validators.ModsValidator;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -31,7 +36,7 @@ public class ModsController {
     private ModService modService;
 
     @PostMapping("/Mods")
-    public ResponseEntity saveGame(@RequestBody Mods mod) {
+    public ResponseEntity saveGame(@Valid @RequestBody Mods mod) {
         Mods newMod = modService.saveMod(mod);
         return new ResponseEntity(newMod, HttpStatus.CREATED);
     }
@@ -55,7 +60,7 @@ public class ModsController {
     }
 
     @PutMapping("/Mods")
-    public ResponseEntity updateMod(@RequestBody Mods mod) throws EntityNotFoundException {
+    public ResponseEntity updateMod(@Valid @RequestBody Mods mod) throws EntityNotFoundException {
         Mods newUpdateGame = modService.updateMod(mod);
         return new ResponseEntity(newUpdateGame, HttpStatus.OK);
     }
@@ -64,5 +69,13 @@ public class ModsController {
     public ResponseEntity updateModToGame(@RequestBody dotModToGame dotMG) throws EntityNotFoundException{
         Mods mod=modService.updateModToGame(dotMG);
         return new ResponseEntity(mod, HttpStatus.ACCEPTED);
+    }
+    
+     //-------------------------------------------------
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        binder.setValidator(new ModsValidator());
+        binder.setValidator(new ModToGameValidator());
+        
     }
 }//endController

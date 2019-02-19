@@ -5,8 +5,7 @@
  */
 package com.roberto.FinalProject.validators;
 
-import com.roberto.FinalProject.model.Game;
-
+import com.roberto.FinalProject.model.Mods;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
@@ -14,35 +13,26 @@ import org.springframework.validation.Validator;
  *
  * @author roberto
  */
-public class GameValidator implements Validator{
+public class ModsValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> clazz) {
+        return Mods.class.equals(clazz);
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        return Game.class.equals(clazz);
     }
 
     @Override
     public void validate(Object target, Errors errors) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        Game game=(Game)target;
+        Mods mod=(Mods)target;
         
-        if(checkedInputString(game.getName())){
+        if(checkedInputString(mod.getName())){
             errors.rejectValue("name", "name.empty");
         }
         
-        if (game.getDescription()==null)
-            errors.rejectValue("description", "description.empty");
-        
-        if(checkedInputString(game.getDescription().getMobileDescription())){
-            errors.rejectValue("mobileDescription", "mobileDescription.empty");
-        }
-        
-        if(checkedInputString(game.getDescription().getWebDescription())){
-            errors.rejectValue("webDescription", "webDescription.empty");
-        }
     }//end
-
+    //--------------------------
+    
     private boolean checkedInputString(String input) {
          return (input == null || input.trim().length() == 0);
     }

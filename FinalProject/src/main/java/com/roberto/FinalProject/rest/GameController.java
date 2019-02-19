@@ -11,7 +11,8 @@ import com.roberto.FinalProject.model.Mods;
 import com.roberto.FinalProject.service.GameService;
 import com.roberto.FinalProject.validators.GameValidator;
 import java.util.List;
-import java.util.Set;
+
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,8 +23,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -37,7 +37,7 @@ public class GameController {
     private GameService gameService;
     
     @PostMapping("/Games")
-    public ResponseEntity saveGame(@RequestBody Game game){
+    public ResponseEntity saveGame(@Valid @RequestBody Game game){
         Game newGame=gameService.saveGame(game);
         return new ResponseEntity(newGame, HttpStatus.CREATED);
     }
@@ -61,7 +61,7 @@ public class GameController {
     }
     
     @PutMapping("/Games")
-    public ResponseEntity updateGame(@RequestBody Game game) throws EntityNotFoundException{
+    public ResponseEntity updateGame(@Valid @RequestBody Game game) throws EntityNotFoundException{
         Game newUpdateGame=gameService.updateGame(game);
         return new ResponseEntity(game, HttpStatus.OK);
     }

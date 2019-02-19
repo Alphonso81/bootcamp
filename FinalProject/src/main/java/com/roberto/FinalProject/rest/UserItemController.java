@@ -12,11 +12,15 @@ import com.roberto.FinalProject.model.Mods;
 import com.roberto.FinalProject.model.UserItem;
 import com.roberto.FinalProject.model.dot.dotUserItem;
 import com.roberto.FinalProject.service.UserItemService;
+import com.roberto.FinalProject.validators.DotUserItemValidator;
 import java.util.List;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,7 +37,7 @@ public class UserItemController {
     private UserItemService uiService;
 
     @PostMapping("/BuyGame")
-    public ResponseEntity buyGameForUser(@RequestBody dotUserItem dotUI) throws EntityNotFoundException {
+    public ResponseEntity buyGameForUser(@Valid @RequestBody dotUserItem dotUI) throws EntityNotFoundException {
 
         if (dotUI.getItem().getClass() != Game.class) {
                 return new ResponseEntity("The item is not a Game",HttpStatus.BAD_REQUEST);
@@ -44,7 +48,7 @@ public class UserItemController {
     }
     
     @PostMapping("/BuyMod")
-    public ResponseEntity buyModForUser(@RequestBody dotUserItem dotUI) throws EntityNotFoundException {
+    public ResponseEntity buyModForUser(@Valid @RequestBody dotUserItem dotUI) throws EntityNotFoundException {
 
         if (dotUI.getItem().getClass() != Mods.class) {
                 return new ResponseEntity("The item is not a Mod",HttpStatus.BAD_REQUEST);
@@ -65,5 +69,12 @@ public class UserItemController {
     public ResponseEntity getAllModsForUser(@PathVariable Long idUser) throws EntityNotFoundException{
         List<Item> list=uiService.getAllItemsForUser(idUser,"M");
         return new ResponseEntity(list, HttpStatus.FOUND);
+    }
+    
+    //-------------------------------------------------
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        binder.setValidator(new DotUserItemValidator());
+        
     }
 }//end

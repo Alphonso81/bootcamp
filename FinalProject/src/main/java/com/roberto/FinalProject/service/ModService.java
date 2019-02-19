@@ -11,6 +11,7 @@ import com.roberto.FinalProject.errorHandler.EntityNotFoundException;
 import com.roberto.FinalProject.model.Game;
 import com.roberto.FinalProject.model.Mods;
 import com.roberto.FinalProject.model.dot.dotModToGame;
+import java.time.OffsetDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,7 @@ public class ModService {
     }
 
     public Mods saveMod(Mods mod) {
+        mod.setCreationDate(OffsetDateTime.now());
        return modRepo.save(mod);
     }
 
@@ -60,8 +62,9 @@ public class ModService {
          Mods newMod=modRepo.findById(mod.getId()).orElse(null);
         if(newMod==null)
            throw new EntityNotFoundException(Mods.class,"id",mod.getId().toString());
+        mod.setEditionDate(OffsetDateTime.now());
         
-        return newMod;
+        return modRepo.save(mod);
     }
 
     public Mods updateModToGame(dotModToGame dotMG)throws EntityNotFoundException  {
@@ -74,8 +77,8 @@ public class ModService {
             throw new EntityNotFoundException(Game.class, "id",dotMG.game.getId().toString());
         
         mod.setGame(game);
-        this.saveMod(mod);
-        return mod;
+        
+        return saveMod(mod);
     }
     
     

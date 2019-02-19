@@ -8,6 +8,7 @@ package com.roberto.FinalProject.service;
 import com.roberto.FinalProject.dao.UserRepository;
 import com.roberto.FinalProject.errorHandler.EntityNotFoundException;
 import com.roberto.FinalProject.model.User;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 
@@ -27,7 +28,7 @@ public class UserService {
     
     
     public User saveUser(User user){
-       
+        user.setCreationDate(OffsetDateTime.now());
         return userRepo.save(user);
     }
     
@@ -52,6 +53,7 @@ public class UserService {
         if(u==null){
             throw new EntityNotFoundException(User.class,"id",user.getId().toString());
         }
+        user.setEditionDate(OffsetDateTime.now());
         return userRepo.save(user);
     }
 
