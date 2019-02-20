@@ -26,45 +26,57 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserItemService {
+
     @Autowired
     private UserItemRepository uiRepo;
-    
+
     @Autowired
     private ItemService itemService;
-    
+
     @Autowired
     private UserService userService;
-    
-    public UserItem saveUserItem(dotUserItem dotUI) throws EntityNotFoundException{
-        User user=userService.findUserById(dotUI.getUser().getId());
-        Item item=itemService.findItem(dotUI.getItem().getId());
-        
-        UserItemPk uiPk=new UserItemPk(user.getId(), item.getId());
-        
-        UserItem ui=new UserItem(uiPk, user, item);
-      
+
+    public UserItem saveUserItem(dotUserItem dotUI) throws EntityNotFoundException {
+        User user = userService.findUserById(dotUI.getUser().getId());
+        Item item = itemService.findItem(dotUI.getItem().getId());
+
+        if (user == null || user.getDeletionDate() == null) {
+            throw new EntityNotFoundException(User.class, "id", user.getId().toString());
+        }
+
+        if (item == null || item.getDeletionDate() == null) {
+            throw new EntityNotFoundException(Item.class, "id", item.getId().toString());
+        }
+        //--------------------------------------------------------------
+        UserItemPk uiPk = new UserItemPk(user.getId(), item.getId());
+
+        UserItem ui = new UserItem(uiPk, user, item);
+
         return uiRepo.save(ui);
     }
 
     public List<Item> getAllItemsForUser(Long idUser, String type) throws EntityNotFoundException {
-        User user=userService.findUserById(idUser);
-        
-        Item item=new Item();
+        User user = userService.findUserById(idUser);
+
+        if (user == null || user.getDeletionDate() != null) {
+            throw new EntityNotFoundException(User.class, "name", idUser.toString());
+        }
+
+        Item item = new Item();
         item.setItemType(type);
-        
-        UserItem ui=new UserItem();
+
+        UserItem ui = new UserItem();
         ui.setUser(user);
         ui.setItem(item);
-        
-        Example example=Example.of(ui);
-        List<UserItem> list= uiRepo.findAll(example);
-       
-        List<Item> result=new ArrayList<>();
-       for(UserItem i:list){
-           result.add(i.getItem());
-       }
-       return result;
+
+        Example example = Example.of(ui);
+        List<UserItem> list = uiRepo.findAll(example);
+
+        List<Item> result = new ArrayList<>();
+        for (UserItem i : list) {
+            result.add(i.getItem());
+        }
+        return result;
     }
 
-    
 }//end

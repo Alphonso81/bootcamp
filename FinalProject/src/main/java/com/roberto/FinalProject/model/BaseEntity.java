@@ -31,6 +31,6 @@ public abstract class BaseEntity {
     
     private OffsetDateTime creationDate;
     private OffsetDateTime editionDate;
-    private OffsetDateTime deletetionDate;
+    private OffsetDateTime deletionDate;
     
 }

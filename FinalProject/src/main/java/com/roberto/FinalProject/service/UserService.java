@@ -9,10 +9,13 @@ import com.roberto.FinalProject.dao.UserRepository;
 import com.roberto.FinalProject.errorHandler.EntityNotFoundException;
 import com.roberto.FinalProject.model.User;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import org.hibernate.criterion.Example;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.ExampleMatcher;
 
 import org.springframework.stereotype.Service;
 
@@ -34,7 +37,8 @@ public class UserService {
     
     public User findUserById(Long idUser) throws EntityNotFoundException {
         User user= userRepo.findById(idUser).orElse(null);
-        if(user==null){
+        
+        if(user==null||user.getDeletionDate()!=null){
             throw new EntityNotFoundException(User.class,"id",idUser.toString());
         }       
         return user;
@@ -45,7 +49,9 @@ public class UserService {
         if(user==null){
             throw new EntityNotFoundException(User.class,"id",idUser.toString());
         }
-        userRepo.delete(user);        
+        user.setDeletionDate(OffsetDateTime.now());
+        userRepo.save(user);
+        //userRepo.delete(user);        
     }
 
     public User updateUser(User user) throws EntityNotFoundException {
@@ -58,13 +64,22 @@ public class UserService {
     }
 
     public List<User> getAllUsers() {
-       
-        return (List<User>)userRepo.findAll();
+    
+      List<User> lst=userRepo.findAll();
+      List<User> result=new ArrayList<>();
+      
+      for(User u:lst){
+          if(u.getDeletionDate()==null)
+              result.add(u);
+      }
+      return result;
+    
+     // return userRepo.getAllUser();
     }
 
     public User findUserByName(String nameUser) throws EntityNotFoundException {
         User user=userRepo.findByName(nameUser);
-        if(user==null)
+        if(user==null||user.getDeletionDate()!=null)
             throw new EntityNotFoundException(User.class,"name",nameUser);
             
        return user;

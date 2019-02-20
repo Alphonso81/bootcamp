@@ -36,7 +36,15 @@ public class GameService {
      private static final Logger logger = LogManager.getLogger(GameService.class);
     
     public List<Game> getAllGames() {
-       return gameRepo.findAll();
+        List<Game> lst=gameRepo.findAll();
+        List<Game> result=new ArrayList<>();
+        
+        for(Game g:lst)
+            if(g.getDeletionDate()==null)
+                result.add(g);
+        
+        
+       return result;
     }
     
     public Game findGameByName(String name) throws EntityNotFoundException{
@@ -47,7 +55,7 @@ public class GameService {
         
         Game result=(Game)gameRepo.findOne(example).orElse(null);
         
-        if(result==null)
+        if(result==null || result.getDeletionDate()==null)
             throw new EntityNotFoundException(Game.class,"name",name);
         
         return result;
@@ -62,7 +70,7 @@ public class GameService {
       
         Game result=gameRepo.findById(idGame).orElse(null);
         
-        if(result==null)
+        if(result==null|| result.getDeletionDate()==null)
             throw new EntityNotFoundException(Game.class,"id",idGame.toString());
         
         return result;
@@ -70,7 +78,7 @@ public class GameService {
 
     public Game updateGame(Game game) throws EntityNotFoundException {
         Game g=gameRepo.findById(game.getId()).orElse(null);
-        if(g==null)
+        if(g==null|| g.getDeletionDate()==null)
             throw new EntityNotFoundException(Game.class,"id",game.getId().toString());
         game.setEditionDate(OffsetDateTime.now());
         gameRepo.save(game);
@@ -80,7 +88,7 @@ public class GameService {
     public List<Mods> getModsGameById(Long idGame) throws EntityNotFoundException {
         Game game=gameRepo.findById(idGame).orElse(null);
         
-        if(game==null)
+        if(game==null|| game.getDeletionDate()==null)
             throw new EntityNotFoundException(Game.class,"id",idGame.toString());
           
         return this.getModsGame(game);
@@ -88,13 +96,18 @@ public class GameService {
 
     public List<Mods> getModsGameByName(String nameGame) throws EntityNotFoundException {
         Game game=gameRepo.findByName(nameGame);
-        if(game==null)
+        if(game==null|| game.getDeletionDate()==null)
             throw new EntityNotFoundException(Game.class,"id",nameGame);
           
         return this.getModsGame(game);
     }
     
-    private List<Mods> getModsGame(Game game){
+    private List<Mods> getModsGame(Game game) throws EntityNotFoundException{
+        Game g=gameRepo.getOne(game.getId());
+        if(g==null|| g.getDeletionDate()==null)
+            throw new EntityNotFoundException(Game.class,"id",game.getId().toString());
+        
+        
         
         Mods filterBy=new Mods();
         filterBy.setGame(game);
@@ -105,5 +118,13 @@ public class GameService {
       
         return list;
         
+    }
+
+    public void deleteGame(Long idGame) throws EntityNotFoundException {
+        Game game=gameRepo.findById(idGame).orElse(null);
+        if(game==null)
+             throw new EntityNotFoundException(Game.class,"id",idGame.toString());
+        game.setDeletionDate(OffsetDateTime.now());
+        gameRepo.save(game);
     }
 }//endSercice

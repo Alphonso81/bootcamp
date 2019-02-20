@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -71,6 +72,11 @@ public class ModsController {
         return new ResponseEntity(mod, HttpStatus.ACCEPTED);
     }
     
+    @DeleteMapping("/Mods/{idMod}")
+    public ResponseEntity deleteGame(@PathVariable("idMod")Long idMod) throws EntityNotFoundException{
+        modService.deleteMod(idMod);
+        return ResponseEntity.ok().build();
+    }
      //-------------------------------------------------
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
