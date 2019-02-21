@@ -40,11 +40,11 @@ public class UserItemService {
         User user = userService.findUserById(dotUI.getUser().getId());
         Item item = itemService.findItem(dotUI.getItem().getId());
 
-        if (user == null || user.getDeletionDate() == null) {
+        if (user == null || user.getDeletionDate() != null) {
             throw new EntityNotFoundException(User.class, "id", user.getId().toString());
         }
 
-        if (item == null || item.getDeletionDate() == null) {
+        if (item == null || item.getDeletionDate() != null) {
             throw new EntityNotFoundException(Item.class, "id", item.getId().toString());
         }
         //--------------------------------------------------------------

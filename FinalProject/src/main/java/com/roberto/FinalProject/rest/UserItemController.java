@@ -39,9 +39,7 @@ public class UserItemController {
     @PostMapping("/BuyGame")
     public ResponseEntity buyGameForUser(@Valid @RequestBody dotUserItem dotUI) throws EntityNotFoundException {
 
-        if (dotUI.getItem().getClass() != Game.class) {
-                return new ResponseEntity("The item is not a Game",HttpStatus.BAD_REQUEST);
-        }
+        
             UserItem ui = uiService.saveUserItem(dotUI);
 
             return new ResponseEntity(ui, HttpStatus.CREATED);
@@ -50,9 +48,7 @@ public class UserItemController {
     @PostMapping("/BuyMod")
     public ResponseEntity buyModForUser(@Valid @RequestBody dotUserItem dotUI) throws EntityNotFoundException {
 
-        if (dotUI.getItem().getClass() != Mods.class) {
-                return new ResponseEntity("The item is not a Mod",HttpStatus.BAD_REQUEST);
-        }
+        
             UserItem ui = uiService.saveUserItem(dotUI);
 
             return new ResponseEntity(ui, HttpStatus.CREATED);
